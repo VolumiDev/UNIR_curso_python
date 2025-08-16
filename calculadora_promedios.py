@@ -3,7 +3,10 @@ def ingresar_calificaciones():
     notas = []
     totalFlag = True
     while(totalFlag):
-        materia = input("Introduce una materia:\n")
+        materia = ""
+        while len(materia) == 0:
+            materia = input("Introduce una materia")
+            materia = materia.strip()
         nota_flag = True
         while(nota_flag):
             try:
@@ -36,10 +39,10 @@ def ingresar_calificaciones():
 
 def calcular_promedio(calificaciones):
     suma = 0
-    for cal in calificaciones:
-        suma += cal
-
-    return suma / len(calificaciones)
+    if len(calificaciones) != 0:
+        for cal in calificaciones:
+            suma += cal
+        return suma / len(calificaciones)
 
 
 def determinar_estado(calificaciones, umbral=5):
@@ -81,19 +84,22 @@ def mostrar_min_max(materias, calificaciones, indices, mensaje):
 if __name__ == "__main__":
           
     materias, calificaciones = ingresar_calificaciones()
-    
-    promedio = calcular_promedio(calificaciones)
-    reprobadas, aprobadas = determinar_estado(calificaciones)
-    minimas, maximas = encontrar_extremos(calificaciones)
+    if len(materias) != 0 or len(calificaciones) != 0:
 
-    print(f"########## RESUMEN ##########\n")
-    mostrar_calificaciones(calificaciones, materias)
-    print(f"El promedio de todas las calificaciones es de {calcular_promedio(calificaciones)}")
-    # MATERIAS APROBADAS
-    mostrar_estado(materias, aprobadas, "Las materias aprobadas son:")
-    mostrar_estado(materias, reprobadas, "Las materias suspendidas son:")
-    mostrar_min_max(materias, calificaciones, minimas, "Las materias con minima nota son:")
-    mostrar_min_max(materias, calificaciones, maximas, "Las materias con maxima nota son:")
+        promedio = calcular_promedio(calificaciones)
+        reprobadas, aprobadas = determinar_estado(calificaciones)
+        minimas, maximas = encontrar_extremos(calificaciones)
+
+        print(f"########## RESUMEN ##########\n")
+        mostrar_calificaciones(calificaciones, materias)
+        print(f"El promedio de todas las calificaciones es de {calcular_promedio(calificaciones)}")
+        # MATERIAS APROBADAS
+        mostrar_estado(materias, aprobadas, "Las materias aprobadas son:")
+        mostrar_estado(materias, reprobadas, "Las materias suspendidas son:")
+        mostrar_min_max(materias, calificaciones, minimas, "Las materias con minima nota son:")
+        mostrar_min_max(materias, calificaciones, maximas, "Las materias con maxima nota son:")
+    else:
+        print("NO HAY ASIGNATURAS QUE CALCULAR")
 
     
 

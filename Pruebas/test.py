@@ -3,5 +3,10 @@ def suma_pares(inicio, fin):
     return suma
 
 
-print(suma_pares(1,10))
-        
+# print(suma_pares(1,10))
+cadena = "    Hola caracola  "
+print(cadena)
+print(cadena.strip())
+
+
+
